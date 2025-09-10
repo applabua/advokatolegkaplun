@@ -15,7 +15,6 @@
       --bg:#0f172a; --panel:#111827; --muted:#9ca3af; --text:#e5e7eb;
       --accent:#d4af37; --accent-2:#f2d56b; --shadow:0 10px 30px rgba(0,0,0,.35);
       --radius:20px; --heroGlass: rgba(10,20,45,.45);
-      /* висота фону підставляється скриптом, запас за замовчуванням */
       --heroH: 640px;
     }
     *{box-sizing:border-box}
@@ -24,15 +23,14 @@
     a:hover{text-decoration:underline}
     .container{width:min(1200px,92%);margin:0 auto}
 
-    /* Фон — СТАЄ лише під хедером+героєм і завершується нижче першого блоку */
+    /* Фон лише під першим блоком (не заходить на «Юридичні послуги») */
     body{background:var(--bg);position:relative}
     body::before{
       content:""; position:absolute; left:0; right:0; top:0; z-index:-2;
-      height: calc(var(--heroH) + 24px); /* трохи нижче першого “вікна” */
+      height: calc(var(--heroH) + 24px);
       background:
         linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.5)),
         url("https://i.ibb.co/DgffkxcB/advokat-dlya-poterpevshego1.png") 42% top / cover no-repeat;
-      /* м’яке згасання, щоб перехід під «Юридичні послуги» був чистим */
       -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 92%, rgba(0,0,0,0) 100%);
               mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 92%, rgba(0,0,0,0) 100%);
     }
@@ -51,7 +49,11 @@
       background: radial-gradient(120% 120% at 20% 20%, #3b3b3b 0%, #202020 60%, #111 100%);
       display:grid;place-items:center;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.06)
     }
-    .logo svg{width:28px;height:28px;fill:var(--accent)}
+    /* Новий логотип-картинка без фону (білий фон «прибирається» множенням) */
+    .logo img{
+      width:72%; height:72%; object-fit:contain; display:block;
+      mix-blend-mode:multiply; /* білий фон зливається з темною плашкою */
+    }
     .brand-title{margin:0;line-height:1}
     .brand-title strong{display:block;font-size:18px;letter-spacing:.3px}
     .brand-title small{display:block;color:var(--muted);font-weight:700}
@@ -61,20 +63,14 @@
     /* Hero */
     .hero{padding:44px 0 28px}
     .hero-card{
-      margin:0 auto;
-      max-width:1040px;
-      text-align:center;
+      margin:0 auto; max-width:1040px; text-align:center;
       background:linear-gradient(180deg, var(--heroGlass), rgba(10,20,45,.35));
       border:1px solid rgba(255,255,255,.10);
       padding:30px;border-radius:var(--radius);box-shadow:var(--shadow);
       backdrop-filter: blur(4px) saturate(120%);
     }
-    .hero h2{
-      font-size:32px; line-height:1.25; margin:0 0 12px
-    }
-    @media (max-width:640px){
-      .hero h2{font-size:24px}
-    }
+    .hero h2{font-size:32px;line-height:1.25;margin:0 0 12px}
+    @media (max-width:640px){.hero h2{font-size:24px}}
     .hero p{color:#d1d5db;margin:0 0 18px}
     .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;justify-content:center}
     .badge{
@@ -167,10 +163,8 @@
     <div class="container nav">
       <div class="brand">
         <div class="logo" aria-label="Логотип — ваги Феміди">
-          <!-- Оновлений чіткий значок ваг -->
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M11 3a1 1 0 1 1 2 0v1h5a1 1 0 1 1 0 2h-5v2h3a1 1 0 0 1 .8.4l2.5 3.3a1 1 0 0 1 .2.6C19.5 15.4 17.1 17 14.5 17s-5-1.6-5.5-4.1a1 1 0 0 1 .2-.6l2.5-3.3a1 1 0 0 1 .8-.4h3V6H8v1h3a1 1 0 0 1 .8.4l2.5 3.3a1 1 0 0 1 .2.6C14 15.4 11.6 17 9 17s-5-1.6-5.5-4.1a1 1 0 0 1 .2-.6L6.2 9.4A1 1 0 0 1 7 9h3V6H5a1 1 0 1 1 0-2h6V3Zm6.5 5.5L18.9 11h-4.8l1.4-1.9h2ZM6.5 10.1 7.9 12H3.1l1.4-1.9h2ZM12 19a1 1 0 1 1 2 0v2h2a1 1 0 1 1 0 2H10a1 1 0 1 1 0-2h2v-2Z"/>
-          </svg>
+          <!-- Картинка ваг без фону -->
+          <img src="https://i.ibb.co/67F3zdLh/35-1.png" alt="Ваги Феміди">
         </div>
         <h1 class="brand-title">
           <strong>Адвокат</strong>
@@ -328,18 +322,17 @@
   const pad = n => String(n).padStart(2,'0');
   $('#year').textContent = new Date().getFullYear();
 
-  /* Динамічне виставлення висоти фонової картинки:
-     завершується ТРОХИ нижче першого блоку (героя) і не заходить на «Юридичні послуги». */
+  /* Виставляємо висоту фону за фактичною висотою героя,
+     щоб він закінчувався нижче першого блоку. */
   function updateHeroBgHeight(){
     const hero = document.querySelector('.hero');
     if(!hero) return;
     const rect = hero.getBoundingClientRect();
-    const height = Math.ceil(rect.bottom + window.scrollY + 8); // +8px запас
+    const height = Math.ceil(rect.bottom + window.scrollY + 8);
     document.documentElement.style.setProperty('--heroH', height + 'px');
   }
   window.addEventListener('load', updateHeroBgHeight, {once:true});
   window.addEventListener('resize', ()=>{ updateHeroBgHeight(); });
-  // на випадок зміни шрифтів/контенту
   new ResizeObserver(updateHeroBgHeight).observe(document.querySelector('.hero-card'));
 
   /* Телефон — м’яка маска під +380 */
