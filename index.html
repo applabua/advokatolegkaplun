@@ -24,7 +24,7 @@
     body{background:var(--bg);position:relative}
     .container{width:min(1200px,92%);margin:0 auto}
 
-    /* ===== Верхний фон только под первый экран (заканчивается чуть выше послуг) ===== */
+    /* ===== Фон: ровно под весь первый блок (Hero), чуточку ниже него ===== */
     #bg-top{
       position:absolute; inset:0 auto auto 0; right:0;
       height:var(--bgHeight);
@@ -34,7 +34,7 @@
       content:""; position:absolute; inset:0;
       background:
         linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.5)),
-        url("https://i.ibb.co/DgffkxcB/advokat-dlya-poterpevshego1.png") 36% top / 105% auto no-repeat; /* немного левее и немного меньше */
+        url("https://i.ibb.co/DgffkxcB/advokat-dlya-poterpevshego1.png") 36% top / 105% auto no-repeat; /* чуть левее и чуть уменьшена */
     }
     @media (max-width:980px){
       #bg-top::before{ background-position:33% top; background-size:103% auto; }
@@ -54,7 +54,7 @@
       background: radial-gradient(120% 120% at 20% 20%, #3b3b3b 0%, #202020 60%, #111 100%);
       display:grid;place-items:center;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.06)
     }
-    /* новый контурный логотип-весы */
+    /* Контурные весы */
     .logo svg{width:28px;height:28px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
     .brand-title{margin:0;line-height:1}
     .brand-title strong{display:block;font-size:18px;letter-spacing:.3px}
@@ -164,7 +164,7 @@
 </head>
 <body>
 
-  <!-- Фон только под первый экран -->
+  <!-- Фон только под первый блок -->
   <div id="bg-top" aria-hidden="true"></div>
 
   <!-- HEADER -->
@@ -172,7 +172,6 @@
     <div class="container nav">
       <div class="brand">
         <div class="logo" aria-label="Логотип — ваги Феміди">
-          <!-- новый читаемый значок весов -->
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 3v4m-6 0h12M8 7l-4 7m12-7l4 7M2 14h6m8 0h6M12 17v4m-4 0h8" />
           </svg>
@@ -333,26 +332,14 @@
   const pad = n => String(n).padStart(2,'0');
   $('#year').textContent = new Date().getFullYear();
 
-  /* Вычисляем высоту фонового блока так, чтобы он заканчивался
-     немного ниже первого окна, но ЧЁТКО выше «Юридичні послуги». */
+  /* Высота фона = НИЗ секции .hero + небольшой запас,
+     чтобы картинка полностью заполняла первый блок и была чуть ниже него */
   function setBgHeight(){
-    const hero = document.getElementById('hero-card');
-    const services = document.getElementById('services');
-    if(!hero || !services) return;
-
-    const heroRect = hero.getBoundingClientRect();
-    const heroBottom = heroRect.top + window.scrollY + heroRect.height;
-
-    const servicesTop = services.getBoundingClientRect().top + window.scrollY;
-
-    const extraBelowHero = 90;  // насколько опустить ниже первого окна
-    const keepGapAboveServices = 14; // зазор над заголовком «Юридичні послуги»
-
-    const desired = heroBottom + extraBelowHero;
-    const limit = servicesTop - keepGapAboveServices;
-
-    const finalHeight = Math.min(desired, limit);
-    document.documentElement.style.setProperty('--bgHeight', finalHeight + 'px');
+    const heroSection = document.querySelector('.hero');
+    if(!heroSection) return;
+    const bottom = heroSection.offsetTop + heroSection.offsetHeight;
+    const extra = 40; // «чуть ниже»
+    document.documentElement.style.setProperty('--bgHeight', (bottom + extra) + 'px');
   }
   window.addEventListener('load', setBgHeight);
   window.addEventListener('resize', ()=>requestAnimationFrame(setBgHeight));
