@@ -14,8 +14,7 @@
     :root{
       --bg:#0f172a; --panel:#111827; --muted:#9ca3af; --text:#e5e7eb;
       --accent:#d4af37; --accent-2:#f2d56b; --shadow:0 10px 30px rgba(0,0,0,.35);
-      --radius:20px;
-      --heroGlass: rgba(10,20,45,.45); /* напівпрозорий темно-синій */
+      --radius:20px; --heroGlass: rgba(10,20,45,.45);
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",Arial}
@@ -23,16 +22,16 @@
     a:hover{text-decoration:underline}
     .container{width:min(1200px,92%);margin:0 auto}
 
-    /* ===== Фон (стабільний, без дергання) ===== */
+    /* Фон — смещён чуть влево и стабилен */
     body{background:var(--bg);position:relative}
     body::before{
       content:""; position:fixed; inset:0; z-index:-2;
       background:
         linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.5)),
-        url("https://i.ibb.co/DgffkxcB/advokat-dlya-poterpevshego1.png") center top / cover no-repeat;
+        url("https://i.ibb.co/DgffkxcB/advokat-dlya-poterpevshego1.png") 42% top / cover no-repeat;
     }
     @media (max-width:980px){
-      body::before{ position:absolute; background-position:center top; }
+      body::before{ position:absolute; background-position:38% top; }
     }
 
     /* Header */
@@ -60,15 +59,21 @@
     .hero{padding:44px 0 28px}
     .hero-card{
       margin:0 auto;
-      max-width:980px;
+      max-width:1040px;                  /* чуть шире — аккуратнее переносы */
       text-align:center;
-      background:
-        linear-gradient(180deg, var(--heroGlass), rgba(10,20,45,.35)); /* темно-синя вуаль */
+      background:linear-gradient(180deg, var(--heroGlass), rgba(10,20,45,.35));
       border:1px solid rgba(255,255,255,.10);
       padding:30px;border-radius:var(--radius);box-shadow:var(--shadow);
       backdrop-filter: blur(4px) saturate(120%);
     }
-    .hero h2{font-size:36px;line-height:1.15;margin:0 0 12px}
+    .hero h2{
+      font-size:32px;                    /* меньше, чтобы не «в столбик» */
+      line-height:1.25;
+      margin:0 0 12px
+    }
+    @media (max-width:640px){
+      .hero h2{font-size:24px}
+    }
     .hero p{color:#d1d5db;margin:0 0 18px}
     .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;justify-content:center}
     .badge{
@@ -117,17 +122,15 @@
       border:1px solid rgba(255,255,255,.12);background:#0b1222;color:var(--text);
       outline:none;transition:.15s border ease,.15s box-shadow ease;font-size:16px
     }
-    /* Вигляд дати та іконки — як у селектів */
-    input[type="date"]{
-      -webkit-appearance:none; appearance:none; text-align:center;
-      background:#0b1222; color:var(--text);
-    }
-    input[type="date"]::-webkit-calendar-picker-indicator{
-      filter: invert(1) opacity(.7);
-    }
+    input[type="date"]{-webkit-appearance:none;appearance:none;text-align:center;background:#0b1222;color:var(--text)}
+    input[type="date"]::-webkit-calendar-picker-indicator{filter: invert(1) opacity(.7)}
     input[type="tel"]{font-variant-numeric:tabular-nums;letter-spacing:.4px}
     input:focus,textarea:focus,select:focus{box-shadow:0 0 0 2px rgba(212,175,55,.35);border-color:rgba(212,175,55,.45)}
     textarea{min-height:92px;resize:vertical}
+
+    .inline-head{display:flex;align-items:center;justify-content:space-between;margin:8px 0 6px}
+    .inline-head small{color:#cbd5e1;opacity:.85}
+
     .times{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
     @media (max-width:980px){.times{grid-template-columns:repeat(3,1fr)}}
     @media (max-width:480px){.times{grid-template-columns:repeat(2,1fr)}}
@@ -138,19 +141,14 @@
     .slot:hover{border-color:rgba(212,175,55,.45)}
     .slot.selected{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#1f2937;border-color:transparent;font-weight:800}
     .slot.disabled{opacity:.35;pointer-events:none;text-decoration:line-through}
-    .inline-head{display:flex;align-items:center;justify-content:space-between;margin:8px 0 6px}
-    .inline-head small{color:#cbd5e1;opacity:.85}
 
-    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;justify-content:center} /* по центру */
     .btn{padding:12px 16px;border-radius:12px;border:0;cursor:pointer;font-weight:800;letter-spacing:.3px}
     .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#1f2937}
     .btn-ghost{background:rgba(255,255,255,.06);color:var(--text);border:1px solid rgba(255,255,255,.12)}
     .divider{height:1px;background:rgba(255,255,255,.08);margin:14px 0}
 
-    /* Контакти: перелік жорстко зліва */
-    .contacts-list{margin:0 0 6px 28px;color:#cbd5e1;max-width:520px;text-align:left}
-
-    /* Footer по центру */
+    /* Footer центр */
     footer{margin-top:26px;border-top:1px solid rgba(255,255,255,.06);padding:18px 0;color:#a3a3a3}
     .cols{display:flex;justify-content:center}
     .cols > div{text-align:center}
@@ -171,7 +169,6 @@
     <div class="container nav">
       <div class="brand">
         <div class="logo" aria-label="Логотип — ваги Феміди">
-          <!-- чіткі ваги -->
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 2a1 1 0 0 1 1 1v1h4a1 1 0 1 1 0 2h-4v2l4 2.5a1 1 0 0 1 .5.866C17.5 14.09 15.09 16 12 16s-5.5-1.91-5.5-4.634a1 1 0 0 1 .5-.866L11 8V6H7a1 1 0 1 1 0-2h4V3a1 1 0 0 1 1-1Zm-6.5 9.366C5.5 14.09 7.91 16 11 16s5.5-1.91 5.5-4.634L11 8.5l-5.5 2.866Z"/>
             <path d="M11 20v-3a1 1 0 1 1 2 0v3h2a1 1 0 1 1 0 2H9a1 1 0 1 1 0-2h2Z"/>
@@ -245,7 +242,7 @@
     <div class="panel">
       <div class="step"><span class="dot"></span><strong style="font-size:18px">Запис на консультацію</strong></div>
 
-      <!-- ПЕРША ЛІНІЯ: 3 колонки (Послуга, Формат, Дата) -->
+      <!-- 3 колонки: Послуга, Формат, Дата -->
       <div class="row row-3">
         <div>
           <label>Послуга</label>
@@ -294,7 +291,6 @@
 
       <div class="actions">
         <button class="btn btn-primary" id="submit">Підтвердити запис</button>
-        <button class="btn btn-ghost" type="button" onclick="copyDetails()">Скопіювати дані</button>
       </div>
     </div>
 
@@ -304,14 +300,7 @@
       <p style="margin:.4rem 0">Телефон: <a href="tel:+380000000000">+38 (000) 000-00-00</a></p>
       <p style="margin:.4rem 0">Telegram: <a href="https://t.me/" target="_blank" rel="noopener">t.me/адвокат</a></p>
       <p style="margin:.4rem 0">Email: <a href="mailto:lawyer@example.com">lawyer@example.com</a></p>
-
-      <div class="divider"></div>
-      <h4 style="margin:0 0 10px;text-align:left">Чому клієнти обирають нас</h4>
-      <ul class="contacts-list">
-        <li>Чесна оцінка перспектив та прозора вартість</li>
-        <li>Підготовка документів «під ключ»</li>
-        <li>Зв’язок у зручних месенджерах</li>
-      </ul>
+      <!-- Удалён блок «Чому клієнти…» -->
     </div>
   </section>
 
@@ -398,18 +387,11 @@
   $('#date').value = todayISO; generateSlots($('#times'), todayISO);
   $('#date').addEventListener('change', e=> generateSlots($('#times'), e.target.value));
 
-  /* Тости/модалка */
-  function showToast(text='Готово'){
-    const t = $('#toast'); $('#toast-text').textContent = text;
-    t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200);
-  }
-  function copyDetails(){
-    const d = collect(false);
-    navigator.clipboard.writeText(renderText(d)); showToast('Дані скопійовано');
-  }
+  /* Копіювання резюме */
   function copySummary(){ navigator.clipboard.writeText($('#summary').innerText); showToast('Скопійовано'); }
-  function openModal(d){ $('#summary').textContent = renderText(d); $('#ics-link').href = makeICS(d); $('#modal').style.display='grid'; }
+  function showToast(text='Готово'){ const t=$('#toast'); $('#toast-text').textContent=text; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
   function closeModal(){ $('#modal').style.display='none'; }
+  function openModal(d){ $('#summary').textContent = renderText(d); $('#ics-link').href = makeICS(d); $('#modal').style.display='grid'; }
 
   function collect(strict=true){
     const data = {
