@@ -51,9 +51,23 @@
     }
     /* Новий логотип-картинка без фону (білий фон «прибирається» множенням) */
     .logo img{
-      width:72%; height:72%; object-fit:contain; display:block;
-      mix-blend-mode:multiply; /* білий фон зливається з темною плашкою */
-    }
+  width:72%;
+  height:72%;
+  object-fit:contain;
+  display:block;
+
+  /* перекраска в золото */
+  filter:
+    brightness(0)        /* убираем исходный цвет */
+    invert(1)
+    sepia(1)
+    saturate(4500%)
+    hue-rotate(5deg)
+    brightness(.95)
+    contrast(.95);
+
+  mix-blend-mode:normal; /* чтобы не темнело на фоне */
+}
     .brand-title{margin:0;line-height:1}
     .brand-title strong{display:block;font-size:18px;letter-spacing:.3px}
     .brand-title small{display:block;color:var(--muted);font-weight:700}
