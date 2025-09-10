@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <title>Адвокат — Юридичні послуги та онлайн-запис</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="description" content="Професійна правова допомога: консультації, представництво в судах, кримінальні справи, сімейні спори, ДТП, спадкування. Онлайн-запис за 30 секунд." />
+
+  <style>
+    :root{
+      --bg:#0f172a;           /* slate-900 */
+      --panel:#111827;        /* gray-900 */
+      --muted:#9ca3af;        /* gray-400 */
+      --text:#e5e7eb;         /* gray-200 */
+      --white:#ffffff;
+      --accent:#d4af37;       /* золото */
+      --accent-2:#c6930e;
+      --ok:#22c55e;
+      --danger:#ef4444;
+      --ring: 0 0 0 2px rgba(212,175,55,.35);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:20px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",Arial,"Apple Color Emoji","Segoe UI Emoji";}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{width:min(1200px,92%);margin:0 auto}
+
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:50;
+      background:linear-gradient(180deg,rgba(15,23,42,.9),rgba(15,23,42,.75));
+      backdrop-filter: blur(8px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex;align-items:center;gap:20px;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{
+      width:38px;height:38px;border-radius:12px;
+      background: radial-gradient(120% 120% at 20% 20%, #3b3b3b 0%, #202020 60%, #111 100%);
+      display:grid;place-items:center;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.06)
+    }
+    .logo svg{width:24px;height:24px;fill:var(--accent)}
+    .brand h1{font-size:18px;margin:0;letter-spacing:.3px}
+    .brand small{display:block;color:var(--muted);font-weight:500}
+    nav a{color:var(--text);opacity:.9;padding:10px 12px;border-radius:10px}
+    nav a:hover{background:rgba(255,255,255,.06)}
+    .cta-head{background:linear-gradient(90deg,var(--accent),#f2d56b);color:#1f2937;padding:10px 14px;border-radius:12px;font-weight:700}
+
+    /* Hero */
+    .hero{
+      display:grid;grid-template-columns:1.2fr .8fr;gap:34px;align-items:center;
+      padding:44px 0 28px;
+    }
+    @media (max-width:980px){.hero{grid-template-columns:1fr;}}
+    .hero-card{
+      background:
+        radial-gradient(120% 140% at 80% 0%, rgba(212,175,55,.08) 0%, rgba(212,175,55,0) 50%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+      border:1px solid rgba(255,255,255,.06);
+      padding:30px;border-radius:var(--radius);box-shadow:var(--shadow)
+    }
+    .hero h2{font-size:36px;line-height:1.15;margin:0 0 12px}
+    .hero p{color:#cbd5e1;margin:0 0 18px}
+    .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .badge{
+      border:1px solid rgba(212,175,55,.35);color:#fef3c7;
+      padding:8px 12px;border-radius:999px;font-size:13px;background:rgba(212,175,55,.06)
+    }
+
+    /* Services */
+    .section{padding:28px 0}
+    .section h3{font-size:28px;margin:0 0 14px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.grid{grid-template-columns:1fr}}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:18px;padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px
+    }
+    .card h4{margin:0 0 6px;font-size:18px}
+    .muted{color:var(--muted);font-size:14px}
+    .pill{
+      appearance:none;border:1px solid rgba(212,175,55,.35);
+      background:rgba(212,175,55,.06);color:#fef3c7;
+      padding:10px 14px;border-radius:999px;font-weight:600;cursor:pointer;
+      transition:.2s transform ease, .2s background ease, .2s border ease;
+      display:inline-flex;align-items:center;gap:8px
+    }
+    .pill:hover{transform:translateY(-1px);background:rgba(212,175,55,.12)}
+    .pill.active{background:linear-gradient(90deg,var(--accent),#f2d56b);color:#1f2937;border-color:transparent}
+
+    /* Booking */
+    .booking{
+      display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:start
+    }
+    @media (max-width:980px){.booking{grid-template-columns:1fr}}
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+    .step{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+    .dot{width:10px;height:10px;border-radius:999px;background:rgba(212,175,55,.35);outline:var(--ring)}
+    .step.done .dot{background:var(--accent)}
+    label{font-size:14px;color:#cbd5e1;margin-bottom:6px;display:block}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:640px){.row{grid-template-columns:1fr}}
+    input[type="text"],input[type="tel"],input[type="date"],textarea,select{
+      width:100%;padding:12px 14px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.1);background:#0b1222;color:var(--text);
+      outline:none;transition:.15s border ease, .15s box-shadow ease
+    }
+    input:focus,textarea:focus,select:focus{box-shadow:var(--ring);border-color:rgba(212,175,55,.45)}
+    textarea{min-height:92px;resize:vertical}
+    .times{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    @media (max-width:980px){.times{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:480px){.times{grid-template-columns:repeat(2,1fr)}}
+    .slot{
+      padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.1);
+      background:#0b1222;text-align:center;cursor:pointer;transition:.15s;
+      user-select:none
+    }
+    .slot:hover{border-color:rgba(212,175,55,.45)}
+    .slot.selected{background:linear-gradient(90deg,var(--accent),#f2d56b);color:#1f2937;border-color:transparent;font-weight:700}
+    .slot[disabled], .slot.disabled{opacity:.35;pointer-events:none;text-decoration:line-through}
+    .helper{font-size:12px;color:#a3a3a3;margin-top:6px}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .btn{
+      padding:12px 16px;border-radius:12px;border:0;cursor:pointer;font-weight:800;letter-spacing:.3px
+    }
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#f2d56b);color:#1f2937}
+    .btn-ghost{background:rgba(255,255,255,.06);color:var(--text);border:1px solid rgba(255,255,255,.1)}
+    .note{font-size:12px;color:#a8a29e;margin-top:8px}
+    .divider{height:1px;background:rgba(255,255,255,.06);margin:14px 0}
+
+    /* Footer */
+    footer{margin-top:26px;border-top:1px solid rgba(255,255,255,.06);padding:18px 0;color:#a3a3a3}
+    .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px}
+    @media (max-width:980px){.cols{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.cols{grid-template-columns:1fr}}
+
+    /* Toast / modal */
+    .toast{
+      position:fixed;right:18px;bottom:18px;background:#111827;border:1px solid rgba(255,255,255,.08);
+      padding:14px 16px;border-radius:14px;box-shadow:var(--shadow);display:none;z-index:60
+    }
+    .toast.show{display:flex;align-items:center;gap:10px}
+    .modal{
+      position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;place-items:center;z-index:70
+    }
+    .modal .box{background:#0b1222;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:20px;width:min(560px,92%);box-shadow:var(--shadow)}
+    .success{color:var(--ok);font-weight:800}
+    .copy{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0a0f1c;border:1px dashed rgba(255,255,255,.15);padding:10px;border-radius:12px}
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-label="Логотип — Феміда">
+          <!-- SVG ваги правосуддя -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2a1 1 0 0 1 1 1v1h4a1 1 0 1 1 0 2h-4v2.126l5.445 3.63c.351.235.555.632.555 1.05 0 1.933-2.239 3.494-5 3.494s-5-1.561-5-3.494c0-.417.204-.814.555-1.05L11 8.126V6H7a1 1 0 1 1 0-2h4V3a1 1 0 0 1 1-1ZM8.5 14.25c-2.761 0-5-1.561-5-3.494 0-.418.204-.815.555-1.05L8.5 6.751l4.445 2.955c.351.235.555.632.555 1.05 0 1.933-2.239 3.494-5 3.494Zm10 0c-2.761 0-5-1.561-5-3.494 0-.418.204-.815.555-1.05L18.5 6.751l4.445 2.955c.351.235.555.632.555 1.05 0 1.933-2.239 3.494-5 3.494Z"/>
+            <path d="M12 20v-4a1 1 0 1 1 2 0v4h2a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2h4Z"/>
+          </svg>
+        </div>
+        <h1>Адвокат <small>Юридичні послуги • онлайн-запис</small></h1>
+      </div>
+      <nav>
+        <a href="#services">Послуги</a>
+        <a href="#about">Про адвоката</a>
+        <a href="#booking" class="cta-head">Записатися</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="container hero" aria-label="Головний блок">
+    <div class="hero-card">
+      <h2>Професійна правова допомога<br/>у цивільних, кримінальних та сімейних справах</h2>
+      <p>Конфіденційно, в строки та з орієнтацією на результат. Онлайн-консультації або зустріч в офісі. Запишіться за 30 секунд.</p>
+      <div class="badges">
+        <span class="badge">Консультації з правових питань</span>
+        <span class="badge">Представництво в судах усіх інстанцій</span>
+        <span class="badge">Кримінальні справи</span>
+        <span class="badge">Сімейні спори: розлучення, аліменти</span>
+        <span class="badge">ДТП, спадкування, стягнення боргів</span>
+      </div>
+    </div>
+
+    <div class="hero-card" id="fast-book">
+      <h3 style="margin:0 0 10px">Швидкий запис</h3>
+      <label for="quick-date">Оберіть дату</label>
+      <input type="date" id="quick-date" />
+      <div class="divider"></div>
+      <label>Найближчі вільні години</label>
+      <div class="times" id="quick-times"></div>
+      <div class="helper">Слоти до 18:00 у робочі дні. Неділі — вихідні.</div>
+      <div class="actions">
+        <button class="btn btn-ghost" onclick="scrollToBooking()">Розширена форма →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="container section" id="services" aria-label="Послуги">
+    <h3>Юридичні послуги</h3>
+    <div class="grid" id="services-grid">
+      <div class="card">
+        <h4>Консультації з правових питань</h4>
+        <div class="muted">Онлайн або офлайн. Роз’яснення ризиків та алгоритм дій.</div>
+        <button class="pill" data-service="Консультація">Обрати</button>
+      </div>
+      <div class="card">
+        <h4>Представництво в судах</h4>
+        <div class="muted">Підготовка процесуальних документів, участь у засіданнях.</div>
+        <button class="pill" data-service="Представництво в судах">Обрати</button>
+      </div>
+      <div class="card">
+        <h4>Захист у кримінальних справах</h4>
+        <div class="muted">Від першого допиту до судового розгляду.</div>
+        <button class="pill" data-service="Кримінальні справи">Обрати</button>
+      </div>
+      <div class="card">
+        <h4>Сімейні спори</h4>
+        <div class="muted">Розлучення, аліменти, поділ майна, визначення місця проживання дитини.</div>
+        <button class="pill" data-service="Сімейні спори">Обрати</button>
+      </div>
+      <div class="card">
+        <h4>Господарські спори</h4>
+        <div class="muted">Супровід бізнесу, претензійна робота, договори.</div>
+        <button class="pill" data-service="Господарські спори">Обрати</button>
+      </div>
+      <div class="card">
+        <h4>ДТП, спадкування, борги</h4>
+        <div class="muted">Відшкодування шкоди, оформлення спадщини, стягнення заборгованості.</div>
+        <button class="pill" data-service="ДТП / Спадкування / Борги">Обрати</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="container section" id="about" aria-label="Про адвоката">
+    <div class="panel">
+      <div class="step done"><span class="dot"></span><strong>Про підхід:</strong>&nbsp;<span class="muted">конфіденційність • стратегія • чіткі терміни</span></div>
+      <p style="margin:0;color:#cbd5e1">Працюю у Вінниці та області, можливі онлайн-консультації по всій Україні. Кожну справу веду персонально: швидко аналізую ситуацію, пропоную реалістичний план дій, прозоро пояснюю ризики та вартість.</p>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="container section booking" id="booking" aria-label="Форма запису">
+    <div class="panel">
+      <div class="step"><span class="dot"></span><strong style="font-size:18px">Запис на консультацію</strong></div>
+
+      <div class="row">
+        <div>
+          <label>Послуга</label>
+          <select id="service">
+            <option value="Консультація">Консультація</option>
+            <option value="Представництво в судах">Представництво в судах</option>
+            <option value="Кримінальні справи">Кримінальні справи</option>
+            <option value="Сімейні спори">Сімейні спори</option>
+            <option value="Господарські спори">Господарські спори</option>
+            <option value="ДТП / Спадкування / Борги">ДТП / Спадкування / Борги</option>
+          </select>
+        </div>
+        <div>
+          <label>Формат</label>
+          <select id="format">
+            <option>Офіс</option>
+            <option>Онлайн (Zoom/Telegram)</option>
+            <option>Виїзд</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="date">Дата</label>
+          <input type="date" id="date" />
+          <div class="helper">Робочі дні 09:00–18:00. Неділі — вихідні.</div>
+        </div>
+        <div>
+          <label>Вільний час</label>
+          <div class="times" id="times"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Ім’я</label>
+          <input type="text" id="name" placeholder="Ім’я та прізвище"/>
+        </div>
+        <div>
+          <label>Телефон</label>
+          <input type="tel" id="phone" placeholder="+380XXXXXXXXX" pattern="^\+?380\d{9}$" />
+        </div>
+      </div>
+
+      <label>Коротко опишіть питання (необов’язково)</label>
+      <textarea id="comment" placeholder="Суть питання, документи, дедлайни…"></textarea>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="submit">Підтвердити запис</button>
+        <button class="btn btn-ghost" type="button" onclick="copyDetails()">Скопіювати дані</button>
+      </div>
+      <div class="note">Натискаючи «Підтвердити», ви погоджуєтеся з конфіденційною обробкою даних. Після підтвердження — збережіть подію у свій календар.</div>
+    </div>
+
+    <div class="panel">
+      <h4 style="margin:0 0 10px">Контакти</h4>
+      <div class="divider"></div>
+      <p style="margin:.4rem 0">Телефон: <a href="tel:+380000000000">+38 (000) 000-00-00</a></p>
+      <p style="margin:.4rem 0">Telegram: <a href="https://t.me/" target="_blank" rel="noopener">t.me/адвокат</a></p>
+      <p style="margin:.4rem 0">Email: <a href="mailto:lawyer@example.com">lawyer@example.com</a></p>
+      <p class="muted" style="margin-top:10px">Адреса офісу: м. Вінниця (уточнюйте під час запису)</p>
+
+      <div class="divider"></div>
+      <h4 style="margin:0 0 10px">Чому клієнти обирають нас</h4>
+      <ul style="margin:0 0 6px 20px;color:#cbd5e1">
+        <li>Чесна оцінка перспектив та прозора вартість</li>
+        <li>Підготовка документів «під ключ»</li>
+        <li>Зв’язок у зручних месенджерах</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container cols">
+      <div>© <span id="year"></span> Адвокат. Усі права захищено.</div>
+      <div><a href="#services">Послуги</a></div>
+      <div><a href="#booking">Запис</a></div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <span class="success">✓</span>
+    <span id="toast-text">Скопійовано</span>
+  </div>
+
+  <!-- Modal success -->
+  <div class="modal" id="modal">
+    <div class="box">
+      <h3 style="margin:0 0 8px">Запис підтверджено ✅</h3>
+      <p class="muted" style="margin:0 0 12px">Ми зв’яжемося з вами для уточнення деталей. Збережіть подію у календар.</p>
+      <div id="summary" class="copy"></div>
+      <div class="actions" style="margin-top:14px">
+        <a id="ics-link" class="btn btn-primary" download="booking.ics">Завантажити .ics</a>
+        <button class="btn btn-ghost" onclick="copySummary()">Скопіювати</button>
+        <button class="btn btn-ghost" onclick="closeModal()">Закрити</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // ---------- Helpers ----------
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const pad = n => String(n).padStart(2,'0');
+
+  // Year
+  $('#year').textContent = new Date().getFullYear();
+
+  // ---------- Services -> set in booking ----------
+  $$('#services-grid .pill').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      $$('#services-grid .pill').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      $('#service').value = btn.dataset.service;
+      document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+    });
+  });
+
+  function scrollToBooking(){ document.getElementById('booking').scrollIntoView({behavior:'smooth'}); }
+
+  // ---------- Dates & times ----------
+  const workStart = 9, workEnd = 18, stepMin = 30;
+  const dayMs = 86400000;
+
+  function setMinDate(input){
+    const d = new Date(); d.setHours(0,0,0,0);
+    input.min = d.toISOString().slice(0,10);
+  }
+  setMinDate($('#date'));
+  setMinDate($('#quick-date'));
+
+  function isWeekend(date){ // Sunday
+    return date.getDay() === 0;
+  }
+
+  function generateSlots(container, date){
+    container.innerHTML = '';
+    if(!date) return;
+    const base = new Date(date+'T00:00:00');
+    if(isWeekend(base)){
+      container.innerHTML = `<div class="muted">Неділя — вихідний день</div>`;
+      return;
+    }
+    const now = new Date();
+    for(let h=workStart; h<workEnd; h++){
+      for(let m=0; m<60; m+=stepMin){
+        const slotDate = new Date(base.getTime());
+        slotDate.setHours(h,m,0,0);
+        const btn = document.createElement('button');
+        btn.type='button'; btn.className='slot';
+        btn.textContent = `${pad(h)}:${pad(m)}`;
+
+        // Past time guard (today)
+        if(slotDate.getTime() < now.getTime() && base.toDateString() === now.toDateString()){
+          btn.classList.add('disabled');
+        }
+
+        // Already booked guard (localStorage)
+        const key = `booking:${date}:${pad(h)}:${pad(m)}`;
+        if(localStorage.getItem(key)) btn.classList.add('disabled');
+
+        btn.addEventListener('click', ()=>{
+          [...container.children].forEach(c=>c.classList.remove('selected'));
+          btn.classList.add('selected');
+          container.dataset.value = btn.textContent;
+        });
+        container.appendChild(btn);
+      }
+    }
+  }
+
+  // Initial quick widgets
+  const todayISO = new Date().toISOString().slice(0,10);
+  $('#quick-date').value = todayISO;
+  generateSlots($('#quick-times'), todayISO);
+
+  $('#quick-date').addEventListener('change', e=>{
+    generateSlots($('#quick-times'), e.target.value);
+  });
+
+  // Mirror pick from quick widget into full form
+  $('#quick-times').addEventListener('click', e=>{
+    if(e.target.classList.contains('slot') && !e.target.classList.contains('disabled')){
+      $('#date').value = $('#quick-date').value;
+      generateSlots($('#times'), $('#date').value);
+      [...$('#times').children].forEach(s=>{
+        if(s.textContent === e.target.textContent) s.click();
+      });
+      scrollToBooking();
+    }
+  });
+
+  // Booking widget
+  $('#date').addEventListener('change', e=> generateSlots($('#times'), e.target.value));
+
+  // Preload with today
+  $('#date').value = todayISO;
+  generateSlots($('#times'), todayISO);
+
+  // ---------- Copy tiny helpers ----------
+  function showToast(text='Готово'){
+    const t = $('#toast'); $('#toast-text').textContent = text;
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), 2200);
+  }
+
+  function copyDetails(){
+    const data = collect(false);
+    navigator.clipboard.writeText(renderText(data));
+    showToast('Дані скопійовано');
+  }
+
+  function copySummary(){
+    navigator.clipboard.writeText($('#summary').innerText);
+    showToast('Скопійовано в буфер');
+  }
+
+  // ---------- Booking submit ----------
+  function collect(strict=true){
+    const data = {
+      service: $('#service').value,
+      format: $('#format').value,
+      date: $('#date').value,
+      time: $('#times').dataset.value || '',
+      name: $('#name').value.trim(),
+      phone: $('#phone').value.trim(),
+      comment: $('#comment').value.trim(),
+    };
+    if(strict){
+      if(!data.date) return alert('Оберіть дату');
+      if(!data.time) return alert('Оберіть час');
+      if(!data.name) return alert('Вкажіть ім’я');
+      if(!/^\+?380\d{9}$/.test(data.phone)) return alert('Телефон має бути у форматі +380XXXXXXXXX');
+    }
+    return data;
+  }
+
+  function renderText(d){
+    return `Запис на консультацію
+Послуга: ${d.service}
+Формат: ${d.format}
+Дата та час: ${d.date} ${d.time}
+Клієнт: ${d.name}
+Телефон: ${d.phone}
+Опис: ${d.comment || '—'}`;
+  }
+
+  function makeICS(d){
+    // Basic 1h event
+    const [hh,mm] = d.time.split(':').map(Number);
+    const start = new Date(d.date+'T'+pad(hh)+':'+pad(mm)+':00');
+    const end = new Date(start.getTime()+60*60*1000);
+    const toICS = x => x.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+    const ics = [
+      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Lawyer Booking//UA',
+      'BEGIN:VEVENT',
+      'UID:'+cryptoRandom(),
+      'DTSTAMP:'+toICS(new Date()),
+      'DTSTART:'+toICS(start),
+      'DTEND:'+toICS(end),
+      'SUMMARY:'+escapeICS(`Консультація: ${d.service}`),
+      'DESCRIPTION:'+escapeICS(`Клієнт: ${d.name}\\nТелефон: ${d.phone}\\nФормат: ${d.format}\\nКоментар: ${d.comment||''}`),
+      'END:VEVENT','END:VCALENDAR'
+    ].join('\r\n');
+    const blob = new Blob([ics], {type:'text/calendar'});
+    return URL.createObjectURL(blob);
+  }
+  const escapeICS = s => String(s).replace(/([,;])/g,'\\$1');
+  const cryptoRandom = () => Math.random().toString(36).slice(2)+Date.now();
+
+  function openModal(d){
+    $('#summary').textContent = renderText(d);
+    $('#ics-link').href = makeICS(d);
+    $('#modal').style.display = 'grid';
+  }
+  function closeModal(){ $('#modal').style.display='none'; }
+
+  $('#submit').addEventListener('click', ()=>{
+    const d = collect(true);
+    // save booking key to mark slot occupied
+    const key = `booking:${d.date}:${d.time.replace(':',':')}`;
+    localStorage.setItem(key, JSON.stringify(d));
+    generateSlots($('#times'), d.date); // refresh disabled state
+    openModal(d);
+  });
+
+  // utility for outside click
+  $('#modal').addEventListener('click', e=>{ if(e.target.id==='modal') closeModal(); });
+
+  // Initial small UX: preselect first free time today in quick widget
+  (function preselectQuick(){
+    const first = Array.from($('#quick-times').children).find(b=>!b.classList.contains('disabled'));
+    if(first) first.classList.add('selected');
+  })();
+</script>
+</body>
+</html>
