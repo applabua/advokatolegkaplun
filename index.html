@@ -7,7 +7,6 @@
   <meta name="format-detection" content="telephone=no"/>
   <meta name="theme-color" content="#0f172a"/>
 
-  <!-- Prefetch фонового изображения -->
   <link rel="dns-prefetch" href="https://i.ibb.co">
   <link rel="preconnect" href="https://i.ibb.co" crossorigin>
 
@@ -23,15 +22,18 @@
     a:hover{text-decoration:underline}
     .container{width:min(1200px,92%);margin:0 auto}
 
-    /* ====== Фоновая картинка на весь сайт ====== */
+    /* ===== Фон (не увеличен, не дергается) ===== */
     body{background:var(--bg);position:relative}
     body::before{
-      content:"";
-      position:fixed; inset:0; z-index:-2;
+      content:""; position:fixed; inset:0; z-index:-2;
       background:
-        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.65)),
-        url("https://i.ibb.co/DgffkxcB/advokat-dlya-poterpevshego1.png") center/cover no-repeat fixed;
-      /* картинка покрывает всю страницу от начала до низа */
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55)),
+        url("https://i.ibb.co/DgffkxcB/advokat-dlya-poterpevshego1.png") center top / cover no-repeat;
+      will-change: transform;
+    }
+    /* На мобильных убираем «fixed-эффект» */
+    @media (max-width:980px){
+      body::before{ position:absolute; background-position:center top; }
     }
 
     /* Header */
@@ -44,35 +46,35 @@
     .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
     .brand{display:flex;align-items:center;gap:14px}
     .logo{
-      width:38px;height:38px;border-radius:12px;
+      width:44px;height:44px;border-radius:12px;
       background: radial-gradient(120% 120% at 20% 20%, #3b3b3b 0%, #202020 60%, #111 100%);
       display:grid;place-items:center;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.06)
     }
-    .logo svg{width:24px;height:24px;fill:var(--accent)}
+    .logo svg{width:28px;height:28px;fill:var(--accent)}
     .brand-title{margin:0;line-height:1}
     .brand-title strong{display:block;font-size:18px;letter-spacing:.3px}
-    .brand-title small{display:block;color:var(--muted);font-weight:600}
-    nav a{color:var(--text);opacity:.9;padding:10px 12px;border-radius:10px}
-    nav a:hover{background:rgba(255,255,255,.06)}
+    .brand-title small{display:block;color:var(--muted);font-weight:700}
     .cta-head{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#1f2937;padding:10px 14px;border-radius:12px;font-weight:800}
+    nav a{color:var(--text);opacity:.95;padding:10px 12px;border-radius:10px}
 
     /* Hero */
-    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:34px;align-items:center;padding:44px 0 28px}
-    @media (max-width:980px){.hero{grid-template-columns:1fr}}
+    .hero{padding:44px 0 28px}
     .hero-card{
+      margin:0 auto;
+      max-width:980px;
+      text-align:center;
       background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
       border:1px solid rgba(255,255,255,.06);
       padding:30px;border-radius:var(--radius);box-shadow:var(--shadow)
     }
     .hero h2{font-size:36px;line-height:1.15;margin:0 0 12px}
     .hero p{color:#cbd5e1;margin:0 0 18px}
-    .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;justify-content:center}
     .badge{
       border:1px solid rgba(212,175,55,.35);color:#fef3c7;
       padding:8px 12px;border-radius:999px;font-size:13px;background:rgba(212,175,55,.06)
     }
 
-    /* Sections */
     .section{padding:28px 0}
     .section h3{font-size:28px;margin:0 0 14px}
 
@@ -92,8 +94,7 @@
       background:rgba(212,175,55,.06);color:#fef3c7;
       padding:8px 12px;border-radius:12px;font-weight:700;cursor:pointer;
       transition:.2s transform ease, .2s background ease, .2s border ease;
-      display:inline-flex;align-items:center;gap:8px;
-      align-self:flex-start;              /* слева */
+      display:inline-flex;align-items:center;gap:8px;align-self:flex-start
     }
     .pill:hover{transform:translateY(-1px);background:rgba(212,175,55,.12)}
     .pill.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#1f2937;border-color:transparent}
@@ -108,11 +109,10 @@
     .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     @media (max-width:640px){.row{grid-template-columns:1fr}}
     input[type="text"],input[type="tel"],input[type="date"],textarea,select{
-      width:100%;padding:12px 14px;border-radius:12px;
+      width:100%;padding:16px 16px;border-radius:14px; /* выше */
       border:1px solid rgba(255,255,255,.12);background:#0b1222;color:var(--text);
-      outline:none;transition:.15s border ease,.15s box-shadow ease
+      outline:none;transition:.15s border ease,.15s box-shadow ease;font-size:16px
     }
-    /* одинаковое отображение телефона на всех устройствах */
     input[type="tel"]{font-variant-numeric:tabular-nums;letter-spacing:.4px}
     input:focus,textarea:focus,select:focus{box-shadow:0 0 0 2px rgba(212,175,55,.35);border-color:rgba(212,175,55,.45)}
     textarea{min-height:92px;resize:vertical}
@@ -120,24 +120,24 @@
     @media (max-width:980px){.times{grid-template-columns:repeat(3,1fr)}}
     @media (max-width:480px){.times{grid-template-columns:repeat(2,1fr)}}
     .slot{
-      padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
+      padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
       background:#0b1222;text-align:center;cursor:pointer;transition:.15s;user-select:none
     }
     .slot:hover{border-color:rgba(212,175,55,.45)}
     .slot.selected{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#1f2937;border-color:transparent;font-weight:800}
+    .slot.disabled{opacity:.35;pointer-events:none;text-decoration:line-through}
     .helper{font-size:12px;color:#a3a3a3;margin-top:6px}
+    .inline-head{display:flex;align-items:center;justify-content:space-between;margin:8px 0 6px}
+    .inline-head small{color:#cbd5e1;opacity:.8}
+
     .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
     .btn{padding:12px 16px;border-radius:12px;border:0;cursor:pointer;font-weight:800;letter-spacing:.3px}
     .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#1f2937}
     .btn-ghost{background:rgba(255,255,255,.06);color:var(--text);border:1px solid rgba(255,255,255,.12)}
-    .note{font-size:12px;color:#a8a29e;margin-top:8px}
     .divider{height:1px;background:rgba(255,255,255,.08);margin:14px 0}
 
     footer{margin-top:26px;border-top:1px solid rgba(255,255,255,.06);padding:18px 0;color:#a3a3a3}
-    .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px}
-    @media (max-width:980px){.cols{grid-template-columns:1fr 1fr}}
-    @media (max-width:640px){.cols{grid-template-columns:1fr}}
-
+    .cols{display:grid;grid-template-columns:1fr;gap:8px}
     /* Toast & Modal */
     .toast{position:fixed;right:18px;bottom:18px;background:#111827;border:1px solid rgba(255,255,255,.08);padding:14px 16px;border-radius:14px;box-shadow:var(--shadow);display:none;z-index:60}
     .toast.show{display:flex;align-items:center;gap:10px}
@@ -153,10 +153,11 @@
   <header>
     <div class="container nav">
       <div class="brand">
-        <div class="logo" aria-label="Логотип — Феміда">
+        <div class="logo" aria-label="Логотип — ваги Феміди">
+          <!-- Чёткий SVG весов -->
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 2a1 1 0 0 1 1 1v1h4a1 1 0 1 1 0 2h-4v2.126l5.445 3.63c.351.235.555.632.555 1.05 0 1.933-2.239 3.494-5 3.494s-5-1.561-5-3.494c0-.417.204-.814.555-1.05L11 8.126V6H7a1 1 0 1 1 0-2h4V3a1 1 0 0 1 1-1ZM8.5 14.25c-2.761 0-5-1.561-5-3.494 0-.418.204-.815.555-1.05L8.5 6.751l4.445 2.955c.351.235.555.632.555 1.05 0 1.933-2.239 3.494-5 3.494Zm10 0c-2.761 0-5-1.561-5-3.494 0-.418.204-.815.555-1.05L18.5 6.751l4.445 2.955c.351.235.555.632.555 1.05 0 1.933-2.239 3.494-5 3.494Z"/>
-            <path d="M12 20v-4a1 1 0 1 1 2 0v4h2a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2h4Z"/>
+            <path d="M12 2a1 1 0 0 1 1 1v1h4a1 1 0 1 1 0 2h-4v2l4 2.5a1 1 0 0 1 .5.866C17.5 14.09 15.09 16 12 16s-5.5-1.91-5.5-4.634a1 1 0 0 1 .5-.866L11 8V6H7a1 1 0 1 1 0-2h4V3a1 1 0 0 1 1-1Zm-6.5 9.366C5.5 14.09 7.91 16 11 16s5.5-1.91 5.5-4.634L11 8.5l-5.5 2.866Z"/>
+            <path d="M11 20v-3a1 1 0 1 1 2 0v3h2a1 1 0 1 1 0 2H9a1 1 0 1 1 0-2h2Z"/>
           </svg>
         </div>
         <h1 class="brand-title">
@@ -165,8 +166,8 @@
         </h1>
       </div>
       <nav>
-        <a href="#services">Послуги</a>
-        <a href="#booking" class="cta-head">Записатися</a>
+        <!-- Золотая кнопка "Послуги" вместо "Записатися" -->
+        <a href="#services" class="cta-head">Послуги</a>
       </nav>
     </div>
   </header>
@@ -182,19 +183,6 @@
         <span class="badge">Кримінальні справи</span>
         <span class="badge">Сімейні спори</span>
         <span class="badge">ДТП, спадкування, борги</span>
-      </div>
-    </div>
-
-    <div class="hero-card" id="fast-book">
-      <h3 style="margin:0 0 10px">Швидкий запис</h3>
-      <label for="quick-date">Оберіть дату</label>
-      <input type="date" id="quick-date"/>
-      <div class="divider"></div>
-      <label>Найближчі вільні години</label>
-      <div class="times" id="quick-times"></div>
-      <div class="helper">Слоти 09:00–18:00, крок 30 хв.</div>
-      <div class="actions">
-        <button class="btn btn-ghost" onclick="scrollToBooking()">Розширена форма →</button>
       </div>
     </div>
   </section>
@@ -236,14 +224,6 @@
     </div>
   </section>
 
-  <!-- ABOUT (без згадки про Вінницю) -->
-  <section class="container section" id="about" aria-label="Про підхід">
-    <div class="panel">
-      <div class="step"><span class="dot"></span><strong style="font-size:18px">Підхід</strong></div>
-      <p style="margin:0;color:#cbd5e1">Персональний супровід: аналіз ситуації, реалістичний план дій, прозора комунікація та вартість.</p>
-    </div>
-  </section>
-
   <!-- BOOKING -->
   <section class="container section booking" id="booking" aria-label="Форма запису">
     <div class="panel">
@@ -275,10 +255,13 @@
         <div>
           <label for="date">Дата</label>
           <input type="date" id="date"/>
-          <div class="helper">Слоти 09:00–18:00, крок 30 хв.</div>
         </div>
         <div>
-          <label>Вільний час</label>
+          <!-- Заголовок и информация о слоте/кроке в одной строке -->
+          <div class="inline-head">
+            <label style="margin:0">Вільний час</label>
+            <small>Слоти 09:00–18:00 • крок 30 хв.</small>
+          </div>
           <div class="times" id="times"></div>
         </div>
       </div>
@@ -301,7 +284,7 @@
         <button class="btn btn-primary" id="submit">Підтвердити запис</button>
         <button class="btn btn-ghost" type="button" onclick="copyDetails()">Скопіювати дані</button>
       </div>
-      <div class="note">Після підтвердження — збережіть подію у свій календар.</div>
+      <!-- Убрали текст про збереження події в календар -->
     </div>
 
     <div class="panel">
@@ -310,10 +293,10 @@
       <p style="margin:.4rem 0">Телефон: <a href="tel:+380000000000">+38 (000) 000-00-00</a></p>
       <p style="margin:.4rem 0">Telegram: <a href="https://t.me/" target="_blank" rel="noopener">t.me/адвокат</a></p>
       <p style="margin:.4rem 0">Email: <a href="mailto:lawyer@example.com">lawyer@example.com</a></p>
-      <!-- Убрали адрес и упоминания о Вінниці -->
+
       <div class="divider"></div>
       <h4 style="margin:0 0 10px">Чому клієнти обирають нас</h4>
-      <ul style="margin:0 0 6px 20px;color:#cbd5e1">
+      <ul style="margin:0 0 6px 28px;color:#cbd5e1;max-width:520px">
         <li>Чесна оцінка перспектив та прозора вартість</li>
         <li>Підготовка документів «під ключ»</li>
         <li>Зв’язок у зручних месенджерах</li>
@@ -323,9 +306,7 @@
 
   <footer>
     <div class="container cols">
-      <div>© <span id="year"></span> Адвокат. Усі права захищено.</div>
-      <div><a href="#services">Послуги</a></div>
-      <div><a href="#booking">Запис</a></div>
+      <div>© <span id="year"></span> Каплун О. Б. Усі права захищено.</div>
     </div>
   </footer>
 
@@ -336,7 +317,6 @@
   <div class="modal" id="modal">
     <div class="box">
       <h3 style="margin:0 0 8px">Запис підтверджено ✅</h3>
-      <p class="muted" style="margin:0 0 12px">Збережіть подію у календар.</p>
       <div id="summary" class="copy"></div>
       <div class="actions" style="margin-top:14px">
         <a id="ics-link" class="btn btn-primary" download="booking.ics">Завантажити .ics</a>
@@ -366,32 +346,33 @@
       $$('#services-grid .pill').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
       $('#service').value = btn.dataset.service;
-      ensureTimesOpen();                     // показать свободные слоты
+      ensureTimesOpen();                     // показать слоты
       document.getElementById('booking').scrollIntoView({behavior:'smooth'});
     });
   });
 
-  function scrollToBooking(){ document.getElementById('booking').scrollIntoView({behavior:'smooth'}); }
-
-  /* Слоты: ВСЕГДА свободные, без блокировок */
+  /* Слоты (5 штук недоступны: 10:00, 11:30, 14:30, 16:00, 17:30) */
   const workStart = 9, workEnd = 18, stepMin = 30;
+  const disabledTimes = new Set(['10:00','11:30','14:30','16:00','17:30']);
 
   function setMinDate(input){
     const d = new Date(); d.setHours(0,0,0,0);
     input.min = d.toISOString().slice(0,10);
   }
-  setMinDate($('#date')); setMinDate($('#quick-date'));
+  setMinDate($('#date'));
 
   function generateSlots(container, date){
     container.innerHTML = '';
     if(!date) return;
-    const base = new Date(date + 'T00:00:00');
     for(let h=workStart; h<workEnd; h++){
       for(let m=0; m<60; m+=stepMin){
+        const t = `${pad(h)}:${pad(m)}`;
         const btn = document.createElement('button');
         btn.type='button'; btn.className='slot';
-        btn.textContent = `${pad(h)}:${pad(m)}`;
+        btn.textContent = t;
+        if(disabledTimes.has(t)) btn.classList.add('disabled');
         btn.addEventListener('click', ()=>{
+          if(btn.classList.contains('disabled')) return;
           [...container.children].forEach(c=>c.classList.remove('selected'));
           btn.classList.add('selected');
           container.dataset.value = btn.textContent;
@@ -401,34 +382,15 @@
     }
   }
 
-  /* Быстрый виджет */
   const todayISO = new Date().toISOString().slice(0,10);
-  $('#quick-date').value = todayISO;
-  generateSlots($('#quick-times'), todayISO);
-
-  $('#quick-date').addEventListener('change', e=>{
-    generateSlots($('#quick-times'), e.target.value);
-  });
-
-  $('#quick-times').addEventListener('click', e=>{
-    if(e.target.classList.contains('slot')){
-      $('#date').value = $('#quick-date').value;
-      generateSlots($('#times'), $('#date').value);
-      [...$('#times').children].forEach(s=>{
-        if(s.textContent === e.target.textContent) s.click();
-      });
-      scrollToBooking();
-    }
-  });
-
-  /* Форма записи */
-  $('#date').addEventListener('change', e=> generateSlots($('#times'), e.target.value));
   $('#date').value = todayISO; generateSlots($('#times'), todayISO);
 
   function ensureTimesOpen(){
     if(!$('#date').value){ $('#date').value = todayISO; }
     generateSlots($('#times'), $('#date').value);
   }
+
+  $('#date').addEventListener('change', e=> generateSlots($('#times'), e.target.value));
 
   /* Тосты и модалка */
   function showToast(text='Готово'){
@@ -493,13 +455,10 @@
 
   $('#submit').addEventListener('click', ()=>{
     const d = collect(true);
-    openModal(d); // Ничего не блокируем — слоты всегда вільні
+    openModal(d);
   });
 
   $('#modal').addEventListener('click', e=>{ if(e.target.id==='modal') closeModal(); });
-
-  // Предвыбор первого видимого слота в "быстром" блоке
-  (function preselectQuick(){ const first = Array.from($('#quick-times').children)[0]; if(first) first.classList.add('selected'); })();
 </script>
 </body>
 </html>
